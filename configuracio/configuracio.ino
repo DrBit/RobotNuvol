@@ -63,7 +63,7 @@ void setup()
 	// servo
 	// myservo.attach(servoPIN);  // attaches the servo on pin 9 to the servo object
 	// Serial
-	Serial.begin (115200);
+	Serial.begin (9600);
 	Serial.println ("\n*Robot seguidor*");
 	// Inicialitzem motors
 	motorDretDIR (endavant);
