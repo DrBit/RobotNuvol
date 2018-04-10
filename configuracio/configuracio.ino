@@ -287,11 +287,6 @@ void motorDretPWM (int valorPWM) {
 	valorPWM = (int) temp_value;
 	#endif
 
-	// Serial.print ("dret pin: ");
-	// Serial.print (enA);
-	// Serial.print ("  PWM: ");
-	// Serial.println (valorPWM);
-
 	// Velocitat 0~255
 	analogWrite(enA, valorPWM);
 }
@@ -303,11 +298,6 @@ void motorEsquerraPWM (int valorPWM) {
 	temp_value = temp_value * (float) factor_motor_esquerra;
 	valorPWM = (int) temp_value;
 	#endif
-
-	// Serial.print ("esquerra pin: ");
-	// Serial.print (enB);
-	// Serial.print ("  PWM: ");
-	// Serial.println (valorPWM);
 
 	// Velocitat 0~255
 	analogWrite(enB, valorPWM);
