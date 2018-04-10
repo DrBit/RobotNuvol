@@ -30,6 +30,8 @@ int sens_dreta = 4;		// sensors optics
 /////////////////////////////
 int vel_dreta = 0;								// Variable per a la velocitat del motor dret
 int vel_esquerra = 0;							// Variable per a la velocitat del motor esquerra
+int dir_dret = 1;								// Variable per a la direcció del motor dret
+int dir_esquerra = 1;							// Variable per a la direcció del motor esquerra
 int ultimGir = 0;								// Variable per enmagatzemar la direcció de l'ultim gir fet
 
 /////////////////////////////
@@ -61,58 +63,43 @@ void setup()
 /////////////////////////////
 void loop()
 {
-	vel_dreta = 0;
-	vel_esquerra = 0;
-
 	if (linea_SensCentre () && !linea_SensDret() && !linea_SensEsq()) {
-		vel_dreta = 255;
-		vel_esquerra = 255;
+		mouMotorsLineaRecta (255);
 	}
 
 	if (linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
-		vel_dreta = 150;
-		vel_esquerra = 255;
+		giraEsquerra (150);
 		ultimGir = esquerra;
 	}
 
 	if (linea_SensCentre () && linea_SensEsq() && !linea_SensDret()) {
-		vel_dreta = 255;
-		vel_esquerra = 150;
+		giraDreta (150);
 		ultimGir = dreta;
 	}
 
 	if (!linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
-		vel_dreta = 0;
-		vel_esquerra = 255;
+		giraEsquerra(255);
 		ultimGir = esquerra;
 	}
 
 	if (!linea_SensCentre () && linea_SensEsq() && !linea_SensDret()) {
-		vel_dreta = 255;
-		vel_esquerra = 0;
+		giraDreta(255);
 		ultimGir = dreta;
 	}
 
 	if (linea_SensCentre () && linea_SensEsq() && linea_SensDret()) {
 		if (ultimGir == esquerra) {
-			vel_dreta = 0;
-			vel_esquerra = 155;
+			giraDreta (150);
 		}else if (ultimGir == dreta) {
-			vel_dreta = 155;
-			vel_esquerra = 0;
+			giraEsquerra(150);
 		}	
 	}
 
 	if (!linea_SensCentre () && !linea_SensEsq() && !linea_SensDret()) {
 		if (ultimGir == esquerra) {
-			vel_dreta = 0;
-			vel_esquerra = 155;
+			giraDreta (150);
 		}else if (ultimGir == dreta) {
-			vel_dreta = 155;
-			vel_esquerra = 0;
+			giraEsquerra(150);
 		}
 	}
-
-	motorDretPWM (vel_dreta);
-	motorEsquerraPWM (vel_esquerra);
 }
