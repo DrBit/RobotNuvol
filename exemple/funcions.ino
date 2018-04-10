@@ -1,4 +1,26 @@
 
+/////////////////////////////
+// Arxiu funcions ***********
+/////////////////////////////
+
+// exemples funcions
+// motorDretPWM (valor);		// Valor = número de 0 a 255. (0 = parat i 255 = màxima velocitat)
+								// Modifica la velocitat a la que gira el motor
+// motorEsquerraPWM (valor);	// Valor = número de 0 a 255. (0 = parat i 255 = màxima velocitat)
+								// Modifica la velocitat a la que gira el motor
+// motorDretDIR (valor);		// Valor = endavant o endarrera. Modifica la direcció a la que gira el motor dret
+// motorEsquerraDIR (valor);	// Valor = endavant o endarrera. Modifica la direcció a la que gira el motor esquerra
+// linea_SensCentre ();			// Ens retorna un valor (0 o 1 - FALSE o TRUE)
+								// Ens indica si el sensor esta detectant una linea negre
+// linea_SensDret ();			// Ens retorna un valor (0 o 1 - FALSE o TRUE)
+								// Ens indica si el sensor esta detectant una linea negre
+// linea_SensEsq ();			// Ens retorna un valor (0 o 1 - FALSE o TRUE)
+								// Ens indica si el sensor esta detectant una linea negre
+
+/////////////////////////////
+// Inicialització ***********
+/////////////////////////////
+
 void Inicialitzem_Motors  () {
 	// Configurem els pins dels motors
 	pinMode(enA, OUTPUT);						// Configurem els pins com a OUTPUT (sortida)
@@ -18,6 +40,10 @@ void Inicialitzem_SensorsOptics () {
 	pinMode(sens_centre, INPUT);
 	pinMode(sens_dreta, INPUT);
 }
+
+/////////////////////////////
+// Funcions motors***********
+/////////////////////////////
 
 void motorDretDIR (int direccio) {
 	if (direccio == endavant) {
@@ -63,6 +89,9 @@ void motorEsquerraPWM (int valorPWM) {
 	analogWrite(enB, valorPWM);
 }
 
+/////////////////////////////
+// Funcions Sensors *********
+/////////////////////////////
 
 boolean linea_SensCentre () {
 	if (!digitalRead(sens_centre)) {
@@ -87,4 +116,3 @@ boolean linea_SensEsq () {
 		return false;
 	}
 }
-

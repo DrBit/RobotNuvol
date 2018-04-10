@@ -41,6 +41,9 @@ int ultimGir = 0;								// Variable per enmagatzemar la direcció de l'ultim gi
 #define endarrera 4
 /////////////////////////////
 
+/////////////////////////////
+// CONFIGURACIÓ   ***********
+/////////////////////////////
 void setup()
 {
 	Inicialitzem_Motors();						// Configurem els pins dels motors
@@ -52,6 +55,10 @@ void setup()
 	delay (3000);								// pausa 3 segons
 }
 
+
+/////////////////////////////
+// LOOP  ********************
+/////////////////////////////
 void loop()
 {
 	vel_dreta = 0;
