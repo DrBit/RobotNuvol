@@ -55,67 +55,71 @@ int colorLinia = negre;
 /////////////////////////////
 // CONFIGURACIÓ   ***********
 /////////////////////////////
+// Aquest codi s'executara un sol cop al principi
 void setup()
 {
+	// Inicialització motors i sensors
 	Inicialitzem_Motors();						// Configurem els pins dels motors
 	Inicialitzem_SensorsOptics();				// Configurem els pins dels sensors optics
 	// Comunicació amb el PC
 	Serial.begin (9600);						// Configurem comunicacio amb el PC a velocitat 9600 bauds per segon
 	Serial.println ("\n*Robot seguidor*");		// Enviem missatge al ordinador
-	Serial.println ("Començem a seguir la linea en 3 segons");
-	delay (3000);								// pausa 3 segons
+	Serial.println ("Començem a seguir la linea en 5 segons");
+	// pausa 5 segons
+	delay (5000);								
 }
 
 
 /////////////////////////////
 // LOOP  ********************
 /////////////////////////////
+// Aquest codi s'executara indefinidament
 void loop()
 {
 	// Linia negre sobre sensor central
-	if (linea_SensCentre () && !linea_SensDret() && !linea_SensEsq()) {
-		mouMotorsLineaRecta (255);
+	if (linia_SensCentre () && !linia_SensDret() && !linia_SensEsq()) {
+		mouMotorsLiniaRecta (255);
 	}
 	
 	// Linia negre sobre sensor central i sensor dret
-	if (linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
+	if (linia_SensCentre () && linia_SensDret() && !linia_SensEsq()) {
 		giraDreta (150);
 	}
 
 	// Linia negre sobre sensor central i sensor esquerra
-	if (linea_SensCentre () && !linea_SensDret() && linea_SensEsq()) {
+	if (linia_SensCentre () && !linia_SensDret() && linia_SensEsq()) {
 		giraEsquerra(150);
 	}
 
 	// Linia negre sobre sensor dret
-	if (!linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
+	if (!linia_SensCentre () && linia_SensDret() && !linia_SensEsq()) {
 		giraDreta (200);
 	}
 
 	// Linia negre sobre sensor esquerra
-	if (!linea_SensCentre () && !linea_SensDret() && linea_SensEsq()) {
+	if (!linia_SensCentre () && !linia_SensDret() && linia_SensEsq()) {
 		giraEsquerra(200);
 	}
 
 	// Linia negre sobre sensor central, dret i esquerra (possiblement estem perduts)
-	if (linea_SensCentre () && linea_SensDret() && linea_SensEsq()) {
+	if (linia_SensCentre () && linia_SensDret() && linia_SensEsq()) {
 		if (ultimGir == esquerra) {		// Girem en la mateixa direccio que l'ultim cop que hem girat
 			giraEsquerra(150);			
 		}else if (ultimGir == dreta) {
 			giraDreta (150);
 		}else{
-			mouMotorsLineaRecta (150);
+			mouMotorsLiniaRecta (150);
 		}
 	}
 
 	// Linia negre enlloc (possiblement estem perduts)
-	if (!linea_SensCentre () && !linea_SensDret() && !linea_SensEsq()) {
+	if (!linia_SensCentre () && !linia_SensDret() && !linia_SensEsq()) {
 		if (ultimGir == esquerra) {		// Girem en la mateixa direccio que l'ultim cop que hem girat
 			giraEsquerra(150);
 		}else if (ultimGir == dreta) {
 			giraDreta (150);
 		}else{
-			mouMotorsLineaRecta (150);
+			mouMotorsLiniaRecta (150);
 		}
 	}
 	

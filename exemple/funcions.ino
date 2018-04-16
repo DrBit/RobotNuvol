@@ -222,7 +222,7 @@ void giraEsquerra (int valor_gir) {
 	motorDretPWM (velocitat_final_dreta);
 }
 
-void mouMotorsLineaRecta (int valor_PWM) {
+void mouMotorsLiniaRecta (int valor_PWM) {
 	if (valor_PWM > 255 || valor_PWM < -255) {
 		Serial.println ("mouMotorsLineaRecta: El valor no pot ser mes gran de 255 ni mes petit de -255");
 		return;
@@ -266,7 +266,7 @@ void reset_gir_esquerra () {
 // Funcions Sensors *********
 /////////////////////////////
 
-boolean linea_SensCentre () {
+boolean linia_SensCentre () {
 	boolean INsensor = digitalRead(sens_centre);
 	if (colorLinia == blanc) INsensor = !INsensor;
 	if (!INsensor) {
@@ -276,7 +276,7 @@ boolean linea_SensCentre () {
 	}
 }
 
-boolean linea_SensDret () {
+boolean linia_SensDret () {
 	boolean INsensor = digitalRead(sens_dreta);
 	if (colorLinia == blanc) INsensor = !INsensor;
 	if (!INsensor) {
@@ -286,7 +286,7 @@ boolean linea_SensDret () {
 	}
 }
 
-boolean linea_SensEsq () {
+boolean linia_SensEsq () {
 	boolean INsensor = digitalRead(sens_esquerra);
 	if (colorLinia == blanc) INsensor = !INsensor;
 	if (!INsensor) {
