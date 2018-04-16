@@ -74,7 +74,6 @@ void motorDretPWM (int valorPWM) {
 		Serial.println ("motorDretPWM: El valor no pot ser mes gran de 255 ni mes petit de -255");
 		return;
 	}
-
 	vel_dreta = valorPWM;
 
 	if (valorPWM < 0) {
@@ -125,6 +124,10 @@ void giraDreta (int valor_gir) {
 		return;
 	}
 
+	if (ValorGirDreta == valor_gir) return;		// Si ja estem girant a l'esquerra a la velocitat que hem posat cancelem ordre
+	ValorGirDreta = valor_gir;
+	reset_gir_esquerra ();
+
 	if (vel_esquerra != vel_dreta) {		// motors estan girant, primer els posem a velocitat igual
 		int diferencia = 0;
 		int vel_final = 0;
@@ -144,9 +147,24 @@ void giraDreta (int valor_gir) {
 	}
 	// un cop tenim la velocitat final a les dues rodes podem processar el gir
 
-	int valor_gir_meitat = valor_gir / 2;
-	int velocitat_final_dreta = vel_dreta - valor_gir_meitat;
-	int velocitat_final_esquerra = vel_esquerra + valor_gir_meitat;
+
+	// Comprobem que les diferencies entre velocitats no superen el marge i adaptem si cal
+	int velocitat_final_dreta = vel_dreta - valor_gir;
+	if (velocitat_final_dreta < -255) {
+
+		int unitats_fora_escala = -(velocitat_final_dreta + 255);
+		velocitat_final_dreta = -255;
+		vel_esquerra = vel_esquerra +  unitats_fora_escala;
+
+	}
+	int velocitat_final_esquerra = vel_esquerra + valor_gir;
+	if (velocitat_final_esquerra > 255) {
+
+		int unitats_fora_escala = velocitat_final_esquerra - 255;
+		velocitat_final_esquerra = 255;
+		vel_dreta = vel_esquerra - unitats_fora_escala;
+
+	}
 	motorEsquerraPWM (velocitat_final_esquerra);
 	motorDretPWM (velocitat_final_dreta);
 }
@@ -157,6 +175,10 @@ void giraEsquerra (int valor_gir) {
 		return;
 	}
 
+	if (ValorGirEsquerra == valor_gir) return;		// Si ja estem girant a l'esquerra a la velocitat que hem posat cancelem ordre
+	ValorGirEsquerra = valor_gir;
+	reset_gir_dreta ();
+
 	if (vel_esquerra != vel_dreta) {		// motors estan girant, primer els posem a velocitat igual
 		int diferencia = 0;
 		int vel_final = 0;
@@ -176,9 +198,24 @@ void giraEsquerra (int valor_gir) {
 	}
 	// un cop tenim la velocitat final a les dues rodes podem processar el gir
 
-	int valor_gir_meitat = valor_gir / 2;
-	int velocitat_final_dreta = vel_dreta + valor_gir_meitat;
-	int velocitat_final_esquerra = vel_esquerra - valor_gir_meitat;
+	// Comprobem que les diferencies entre velocitats no superen el marge i adaptem si cal
+	int velocitat_final_dreta = vel_dreta + valor_gir;
+	if (velocitat_final_dreta > 255) {
+
+		int unitats_fora_escala = velocitat_final_dreta - 255;
+		velocitat_final_dreta = 255;
+		vel_esquerra = vel_esquerra -  unitats_fora_escala;
+
+	}
+
+	int velocitat_final_esquerra = vel_esquerra - valor_gir;
+	if (velocitat_final_esquerra < -255) {
+
+		int unitats_fora_escala = -(velocitat_final_esquerra + 255);
+		velocitat_final_esquerra = -255;
+		vel_dreta = vel_dreta + unitats_fora_escala;
+	}
+	
 	motorEsquerraPWM (velocitat_final_esquerra);
 	motorDretPWM (velocitat_final_dreta);
 }
@@ -188,7 +225,7 @@ void mouMotorsLineaRecta (int valor_PWM) {
 		Serial.println ("mouMotorsLineaRecta: El valor no pot ser mes gran de 255 ni mes petit de -255");
 		return;
 	}
-
+	reset_gir ();
 	motorEsquerraPWM(valor_PWM);
 	motorDretPWM(valor_PWM);
 }
@@ -203,12 +240,29 @@ void driver_Esquerra (int valorPWM) {
 	analogWrite(enB, valorPWM);
 }
 
+void reset_gir () {
+	reset_gir_dreta ();
+	reset_gir_esquerra ();
+}
+void reset_gir_dreta () {
+	// Resetejem els valors de gir posant un valor fora del rang de spossibilitats
+	ValorGirDreta = 256;	
+}
+
+void reset_gir_esquerra () {
+	// Resetejem els valors de gir posant un valor fora del rang de spossibilitats
+	ValorGirEsquerra = 256;	
+}
+
+
 /////////////////////////////
 // Funcions Sensors *********
 /////////////////////////////
 
 boolean linea_SensCentre () {
-	if (!digitalRead(sens_centre)) {
+	boolean INsensor = digitalRead(sens_centre);
+	if (colorLinia == blanc) INsensor = !INsensor;
+	if (!INsensor) {
 		return true;
 	}else{
 		return false;
@@ -216,7 +270,9 @@ boolean linea_SensCentre () {
 }
 
 boolean linea_SensDret () {
-	if (!digitalRead(sens_dreta)) {
+	boolean INsensor = digitalRead(sens_dreta);
+	if (colorLinia == blanc) INsensor = !INsensor;
+	if (!INsensor) {
 		return true;
 	}else{
 		return false;
@@ -224,7 +280,9 @@ boolean linea_SensDret () {
 }
 
 boolean linea_SensEsq () {
-	if (!digitalRead(sens_esquerra)) {
+	boolean INsensor = digitalRead(sens_esquerra);
+	if (colorLinia == blanc) INsensor = !INsensor;
+	if (!INsensor) {
 		return true;
 	}else{
 		return false;

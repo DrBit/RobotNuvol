@@ -33,6 +33,8 @@ int vel_esquerra = 0;							// Variable per a la velocitat del motor esquerra
 int dir_dret = 1;								// Variable per a la direcció del motor dret
 int dir_esquerra = 1;							// Variable per a la direcció del motor esquerra
 int ultimGir = 0;								// Variable per enmagatzemar la direcció de l'ultim gir fet
+int ValorGirEsquerra = 0;						// Variable per a la velocitat de gir esquerra
+int ValorGirDreta = 0;							// Variable per a la velocitat de gir dreta
 
 /////////////////////////////
 // Definicions globals ******					// Ens serveixen per fer mes llegible el codi. 
@@ -41,7 +43,14 @@ int ultimGir = 0;								// Variable per enmagatzemar la direcció de l'ultim gi
 #define esquerra 2
 #define endavant 3
 #define endarrera 4
+#define negre 5
+#define blanc 6
 /////////////////////////////
+
+/////////////////////////////
+// Variables Sensors ********
+/////////////////////////////
+int colorLinia = negre;
 
 /////////////////////////////
 // CONFIGURACIÓ   ***********
@@ -66,40 +75,47 @@ void loop()
 	if (linea_SensCentre () && !linea_SensDret() && !linea_SensEsq()) {
 		mouMotorsLineaRecta (255);
 	}
-
+	
 	if (linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
-		giraEsquerra (150);
-		ultimGir = esquerra;
-	}
-
-	if (linea_SensCentre () && linea_SensEsq() && !linea_SensDret()) {
 		giraDreta (150);
 		ultimGir = dreta;
 	}
 
-	if (!linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
-		giraEsquerra(255);
+	if (linea_SensCentre () && !linea_SensDret() && linea_SensEsq()) {
+		giraEsquerra(150);
 		ultimGir = esquerra;
 	}
 
-	if (!linea_SensCentre () && linea_SensEsq() && !linea_SensDret()) {
-		giraDreta(255);
+	if (!linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
+		giraDreta (200);
 		ultimGir = dreta;
 	}
 
+	if (!linea_SensCentre () && !linea_SensDret() && linea_SensEsq()) {
+		giraEsquerra(200);
+		ultimGir = esquerra;
+	}
+
+	
+
 	if (linea_SensCentre () && linea_SensEsq() && linea_SensDret()) {
 		if (ultimGir == esquerra) {
-			giraDreta (150);
+			giraEsquerra(150);			
 		}else if (ultimGir == dreta) {
-			giraEsquerra(150);
-		}	
+			giraDreta (150);
+		}else{
+			mouMotorsLineaRecta (150);
+		}
 	}
 
 	if (!linea_SensCentre () && !linea_SensEsq() && !linea_SensDret()) {
 		if (ultimGir == esquerra) {
-			giraDreta (150);
-		}else if (ultimGir == dreta) {
 			giraEsquerra(150);
+		}else if (ultimGir == dreta) {
+			giraDreta (150);
+		}else{
+			mouMotorsLineaRecta (150);
 		}
 	}
+	
 }
