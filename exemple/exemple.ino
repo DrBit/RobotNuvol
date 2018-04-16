@@ -72,34 +72,34 @@ void setup()
 /////////////////////////////
 void loop()
 {
+	// Linia negre sobre sensor central
 	if (linea_SensCentre () && !linea_SensDret() && !linea_SensEsq()) {
 		mouMotorsLineaRecta (255);
 	}
 	
+	// Linia negre sobre sensor central i sensor dret
 	if (linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
 		giraDreta (150);
-		ultimGir = dreta;
 	}
 
+	// Linia negre sobre sensor central i sensor esquerra
 	if (linea_SensCentre () && !linea_SensDret() && linea_SensEsq()) {
 		giraEsquerra(150);
-		ultimGir = esquerra;
 	}
 
+	// Linia negre sobre sensor dret
 	if (!linea_SensCentre () && linea_SensDret() && !linea_SensEsq()) {
 		giraDreta (200);
-		ultimGir = dreta;
 	}
 
+	// Linia negre sobre sensor esquerra
 	if (!linea_SensCentre () && !linea_SensDret() && linea_SensEsq()) {
 		giraEsquerra(200);
-		ultimGir = esquerra;
 	}
 
-	
-
-	if (linea_SensCentre () && linea_SensEsq() && linea_SensDret()) {
-		if (ultimGir == esquerra) {
+	// Linia negre sobre sensor central, dret i esquerra (possiblement estem perduts)
+	if (linea_SensCentre () && linea_SensDret() && linea_SensEsq()) {
+		if (ultimGir == esquerra) {		// Girem en la mateixa direccio que l'ultim cop que hem girat
 			giraEsquerra(150);			
 		}else if (ultimGir == dreta) {
 			giraDreta (150);
@@ -108,8 +108,9 @@ void loop()
 		}
 	}
 
-	if (!linea_SensCentre () && !linea_SensEsq() && !linea_SensDret()) {
-		if (ultimGir == esquerra) {
+	// Linia negre enlloc (possiblement estem perduts)
+	if (!linea_SensCentre () && !linea_SensDret() && !linea_SensEsq()) {
+		if (ultimGir == esquerra) {		// Girem en la mateixa direccio que l'ultim cop que hem girat
 			giraEsquerra(150);
 		}else if (ultimGir == dreta) {
 			giraDreta (150);

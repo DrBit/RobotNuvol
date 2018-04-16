@@ -126,6 +126,7 @@ void giraDreta (int valor_gir) {
 
 	if (ValorGirDreta == valor_gir) return;		// Si ja estem girant a l'esquerra a la velocitat que hem posat cancelem ordre
 	ValorGirDreta = valor_gir;
+	ultimGir = dreta;
 	reset_gir_esquerra ();
 
 	if (vel_esquerra != vel_dreta) {		// motors estan girant, primer els posem a velocitat igual
@@ -177,6 +178,7 @@ void giraEsquerra (int valor_gir) {
 
 	if (ValorGirEsquerra == valor_gir) return;		// Si ja estem girant a l'esquerra a la velocitat que hem posat cancelem ordre
 	ValorGirEsquerra = valor_gir;
+	ultimGir = esquerra;
 	reset_gir_dreta ();
 
 	if (vel_esquerra != vel_dreta) {		// motors estan girant, primer els posem a velocitat igual
@@ -226,6 +228,11 @@ void mouMotorsLineaRecta (int valor_PWM) {
 		return;
 	}
 	reset_gir ();
+	if (valor_PWM >= 0) {
+		ultimGir = endavant;
+	}else{
+		ultimGir = endarrera;
+	}	
 	motorEsquerraPWM(valor_PWM);
 	motorDretPWM(valor_PWM);
 }
