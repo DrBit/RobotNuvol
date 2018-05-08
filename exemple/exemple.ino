@@ -28,13 +28,7 @@ int sens_dreta = 4;		// sensors optics
 /////////////////////////////
 // Variables Motors *********
 /////////////////////////////
-int vel_dreta = 0;								// Variable per a la velocitat del motor dret
-int vel_esquerra = 0;							// Variable per a la velocitat del motor esquerra
-int dir_dret = 1;								// Variable per a la direcció del motor dret
-int dir_esquerra = 1;							// Variable per a la direcció del motor esquerra
 int ultimGir = 0;								// Variable per enmagatzemar la direcció de l'ultim gir fet
-int ValorGirEsquerra = 0;						// Variable per a la velocitat de gir esquerra
-int ValorGirDreta = 0;							// Variable per a la velocitat de gir dreta
 
 /////////////////////////////
 // Definicions globals ******					// Ens serveixen per fer mes llegible el codi. 

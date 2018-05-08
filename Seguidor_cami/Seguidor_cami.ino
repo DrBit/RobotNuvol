@@ -1,6 +1,5 @@
 //Robonuvol
 
-
 /////////////////////////////
 // PROGRAMA *****************
 /////////////////////////////
@@ -21,20 +20,16 @@ int in2 = 8;			// motor dret
 int in3 = 7;			// motor esquerra
 int in4 = 6;			// motor esquerra
 int enB = 5;			// motor esquerra
+int sens_esquerra = 2;	// sensors optics
+int sens_centre = 3;	// sensors optics
+int sens_dreta = 4;		// sensors optics
 /////////////////////////////
 
 
 /////////////////////////////
 // Variables Motors *********
 /////////////////////////////
-int vel_dreta = 0;								// Variable per a la velocitat del motor dret
-int vel_esquerra = 0;							// Variable per a la velocitat del motor esquerra
-int dir_dret = 1;								// Variable per a la direcció del motor dret
-int dir_esquerra = 1;							// Variable per a la direcció del motor esquerra
 int ultimGir = 0;								// Variable per enmagatzemar la direcció de l'ultim gir fet
-int ValorGirEsquerra = 0;						// Variable per a la velocitat de gir esquerra
-int ValorGirDreta = 0;							// Variable per a la velocitat de gir dreta
-/////////////////////////////
 
 /////////////////////////////
 // Definicions globals ******					// Ens serveixen per fer mes llegible el codi. 
@@ -45,13 +40,6 @@ int ValorGirDreta = 0;							// Variable per a la velocitat de gir dreta
 #define endarrera 4
 #define negre 5
 #define blanc 6
-#define dretaC 7
-#define esquerraC 8
-
-#define sortint_esquerra 9
-#define sortint_dreta 10
-#define sortint_dreta_rectificant 11
-#define sortint_esquerra_rectificant 12
 /////////////////////////////
 
 

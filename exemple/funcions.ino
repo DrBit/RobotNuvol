@@ -1,4 +1,3 @@
-
 /////////////////////////////
 // Arxiu funcions ***********
 /////////////////////////////
@@ -16,21 +15,18 @@
 								// Ens indica si el sensor esta detectant una linea negre
 // linea_SensEsq ();			// Ens retorna un valor (0 o 1 - FALSE o TRUE)
 								// Ens indica si el sensor esta detectant una linea negre
-#ifdef negre
-#else
-#define negre 5
-#endif
 
-#ifdef blanc
-#else
-#define blanc 6
-#endif
 
 /////////////////////////////
 // Variables Sensors ********
 /////////////////////////////
 int colorLinia = negre;			// Defineix si la linia es negre o blanca
-
+int ValorGirEsquerra = 0;						// Variable per a la velocitat de gir esquerra
+int ValorGirDreta = 0;							// Variable per a la velocitat de gir dreta
+int vel_dreta = 0;								// Variable per a la velocitat del motor dret
+int vel_esquerra = 0;							// Variable per a la velocitat del motor esquerra
+int dir_dret = 1;								// Variable per a la direcció del motor dret
+int dir_esquerra = 1;							// Variable per a la direcció del motor esquerra
 
 /////////////////////////////
 // Inicialització ***********
